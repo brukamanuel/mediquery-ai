@@ -2,7 +2,7 @@ import streamlit as st
 import os
 import html
 
-from src.search_engine import search_answer
+from src.semantic_search_engine import semantic_search
 
 
 st.set_page_config(
@@ -146,7 +146,6 @@ if "messages" not in st.session_state:
 
 
 for message in st.session_state.messages:
-
     if message["role"] == "user":
         safe_text = html.escape(message["content"])
 
@@ -169,7 +168,6 @@ for message in st.session_state.messages:
 
 
 with st.form("chat_form", clear_on_submit=True):
-
     question = st.text_input(
         "Medical Question",
         placeholder="Example: What are symptoms of diabetes?"
@@ -181,50 +179,43 @@ with st.form("chat_form", clear_on_submit=True):
 col1, col2 = st.columns([1, 1])
 
 with col2:
-
     if st.button("Clear Chat"):
         st.session_state.messages = []
         st.rerun()
 
 
 if submitted and question:
-
     st.session_state.messages.append(
         {"role": "user", "content": question}
     )
 
     with st.spinner("Analyzing medical documents..."):
-        answer, score, source, recommendations = search_answer(question)
+        answer, score, source, recommendations = semantic_search(question)
 
     safe_answer = html.escape(answer)
 
     if source is None:
-
         bot_response = (
             f"{safe_answer}"
             f"<div class='source-text'>Match score: {round(score, 3)}</div>"
         )
 
     else:
-
         unique_sources = []
 
         for item in recommendations:
-
             if item["source"] not in unique_sources:
                 unique_sources.append(item["source"])
 
         recommendation_html = ""
 
         if unique_sources:
-
             recommendation_html = (
                 "<div class='recommendation-box'>"
                 "<div class='recommendation-title'>Related passages</div>"
             )
 
             for source_name in unique_sources[:3]:
-
                 recommendation_html += f"<div>{html.escape(source_name)}</div>"
 
             recommendation_html += "</div>"
@@ -243,32 +234,30 @@ if submitted and question:
 
 
 with st.expander("How MediQuery AI Works"):
-
     st.markdown(
         """
         **1. PDF Text Extraction**  
         Medical PDF files are read using PyMuPDF and converted into raw text.
 
         **2. Text Chunking**  
-        The extracted text is divided into smaller passages. This helps the system search more accurately instead of comparing the question with an entire long document.
+        The extracted text is divided into smaller passages.
 
-        **3. TF-IDF Vectorization**  
-        Each text passage is converted into numerical form using TF-IDF. This gives higher importance to meaningful terms and lower importance to very common words.
+        **3. Semantic Embedding Search**  
+        Each passage is converted into a semantic vector using Sentence Transformers.
 
-        **4. Cosine Similarity**  
-        The user question is converted into the same vector format and compared with all document passages using cosine similarity.
+        **4. Similarity Matching**  
+        The user question is compared with all passage embeddings to find the closest matches.
 
-        **5. Answer Extraction**  
-        The system selects the most relevant sentence from the best matching passage.
+        **5. Multi-Passage Answer Extraction**  
+        The system selects relevant sentences from the top matching passages.
 
         **6. Source Tracking**  
-        The response includes the source PDF and a match score showing how close the retrieved passage was to the user question.
+        The response includes the source PDF and a match score.
         """
     )
 
 
 with st.expander("Document Upload"):
-
     upload_folder = "data/medical_pdfs"
 
     uploaded_files = st.file_uploader(
@@ -278,13 +267,10 @@ with st.expander("Document Upload"):
     )
 
     if uploaded_files:
-
         saved_filenames = []
 
         for uploaded_file in uploaded_files:
-
             save_path = os.path.join(upload_folder, uploaded_file.name)
-
             saved_filenames.append(html.escape(uploaded_file.name))
 
             with open(save_path, "wb") as f:

@@ -1,0 +1,13 @@
+User Question
+      ↓
+Question Preprocessing + Synonym Expansion
+      ↓
+TF-IDF Vectorization
+      ↓
+Cosine Similarity Search
+      ↓
+Top 3 Passage Retrieval
+      ↓
+Intent-Aware Sentence Ranking
+      ↓
+Final Answer + Source PDF + Match Score

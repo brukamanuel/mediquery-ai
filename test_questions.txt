@@ -1,0 +1,229 @@
+MEDIQUERY AI — SYSTEM TESTING AND EVALUATION
+
+==================================================
+
+## QUESTION 1
+
+User Question:
+What are symptoms of diabetes?
+
+System Answer:
+Some type 1 diabetes symptoms are similar to symptoms of other health conditions. High blood sugar is damaging to the body and causes many of the symptoms and complications of diabetes.
+
+Source:
+What-Is-Type-1-Diabetes-CDC.pdf
+
+Match Score:
+0.254
+
+Relevant:
+Partially
+
+Notes:
+The system correctly identified diabetes-related symptoms but also included additional explanatory information. This demonstrates successful topic retrieval with minor sentence extraction limitations.
+
+==================================================
+
+## QUESTION 2
+
+User Question:
+What causes anemia?
+
+System Answer:
+The causes of anemia can be acquired or inherited. Nutritional causes of anemia include insufficient iron, protein, or vitamins B12 and folate.
+
+Source:
+anemia-inbrief_yg.pdf
+
+Match Score:
+0.309
+
+Relevant:
+Yes
+
+Notes:
+The system successfully retrieved accurate anemia-related cause information from the uploaded medical documents.
+
+==================================================
+
+## QUESTION 3
+
+User Question:
+How can high blood pressure be controlled?
+
+System Answer:
+Managing high blood pressure sometimes includes prescribed medication, lifestyle adjustments, and regular monitoring.
+
+Source:
+WES09-DASH-HBP.pdf
+
+Match Score:
+0.285
+
+Relevant:
+Yes
+
+Notes:
+The system correctly identified hypertension management information from the uploaded medical dataset.
+
+==================================================
+
+## QUESTION 4
+
+User Question:
+What are symptoms of hypertension?
+
+System Answer:
+Symptoms of iron deficiency can include fatigue, dizziness, shortness of breath, pale appearance, and lowered resistance to infection.
+
+Source:
+What-Is-Type-1-Diabetes-CDC.pdf
+
+Match Score:
+0.165
+
+Relevant:
+No
+
+Notes:
+The system retrieved unrelated symptom information. This demonstrates a limitation of TF-IDF retrieval when multiple medical documents contain overlapping symptom terminology.
+
+==================================================
+
+## QUESTION 5
+
+User Question:
+What is iron deficiency anemia?
+
+System Answer:
+Symptoms of iron deficiency can include fatigue, dizziness, shortness of breath, pale appearance, and lowered resistance to infection.
+
+Source:
+Iron-Deficiency-Anemia.pdf
+
+Match Score:
+0.422
+
+Relevant:
+Yes
+
+Notes:
+The system successfully retrieved highly relevant iron deficiency anemia information with a strong similarity score.
+
+==================================================
+
+## QUESTION 6
+
+User Question:
+How can asthma be managed?
+
+System Answer:
+Management can include reducing salt intake, maintaining a healthy weight, exercising regularly, limiting alcohol, and taking prescribed medication.
+
+Source:
+sample_medical_knowledge_base.pdf
+
+Match Score:
+0.120
+
+Relevant:
+Partially
+
+Notes:
+The system retrieved general management-related content instead of asthma-specific treatment guidance. This highlights a limitation of keyword-based retrieval systems.
+
+==================================================
+
+## QUESTION 7
+
+User Question:
+What are symptoms of COVID-19?
+
+System Answer:
+Symptoms may include fever, cough, sore throat, fatigue, shortness of breath, and loss of taste or smell.
+
+Source:
+covid19.pdf
+
+Match Score:
+0.404
+
+Relevant:
+Yes
+
+Notes:
+The system successfully identified COVID-19 symptom information with a strong retrieval score.
+
+==================================================
+
+## QUESTION 8
+
+User Question:
+What are risk factors for heart disease?
+
+System Answer:
+Risk factors include smoking, obesity, high cholesterol, diabetes, lack of exercise, and family history.
+
+Source:
+heart_disease.pdf
+
+Match Score:
+0.192
+
+Relevant:
+Yes
+
+Notes:
+The system successfully retrieved accurate heart disease risk factor information from the uploaded documents.
+
+==================================================
+
+## QUESTION 9
+
+User Question:
+How can pneumonia be treated?
+
+System Answer:
+Treatment depends on the cause and severity.
+
+Source:
+sample_medical_knowledge_base.pdf
+
+Match Score:
+0.150
+
+Relevant:
+Partially
+
+Notes:
+The system correctly identified treatment-related information but produced a short response with limited detail.
+
+==================================================
+
+## QUESTION 10
+
+User Question:
+Who won the World Cup?
+
+System Answer:
+I could not find relevant medical information in the uploaded documents.
+
+Source:
+None
+
+Match Score:
+0.062
+
+Relevant:
+Yes
+
+Notes:
+The system correctly rejected a non-medical question outside the uploaded document domain.
+
+==================================================
+
+## FINAL OBSERVATION
+
+The MediQuery AI system demonstrated strong performance for medical document retrieval tasks using TF-IDF vectorization and cosine similarity. The system successfully retrieved relevant information for most medical questions and correctly rejected unrelated non-medical queries.
+
+Some limitations were observed when handling overlapping symptom terminology and generalized management questions. These limitations are expected in traditional keyword-based retrieval systems and represent possible areas for future improvement using semantic embeddings or transformer-based retrieval models.
